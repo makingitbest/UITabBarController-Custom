@@ -109,7 +109,7 @@ typedef enum : NSUInteger {
     // 集中设置tabBarItem的类型
     for (UIViewController *controller in controllers) {
         
-        [self setupController:controller tabBarItemType:kImageTitleType];
+        [self setupController:controller tabBarItemType:kTitleImageType];
     }
 }
 

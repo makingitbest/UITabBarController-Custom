@@ -1,0 +1,20 @@
+//
+//  ViewControllerTwo.m
+//  UITabBarController- System2
+//
+//  Created by WangQiao on 16/8/19.
+//  Copyright © 2016年 WangQiao. All rights reserved.
+//
+
+#import "ViewControllerTwo.h"
+
+@implementation ViewControllerTwo
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blueColor];
+}
+
+@end

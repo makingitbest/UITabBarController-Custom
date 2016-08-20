@@ -14,8 +14,10 @@
 #import "ViewControllerFive.h"
 #import "HexColors.h"
 #import "UIFont+Fonts.h"
+#import "UIView+SetRect.h"
 #import "NSString+RenderingMode.h"
 #import "UIColor+CreateImage.h"
+#import "UIView+GlowView.h"
 
 typedef enum : NSUInteger {
     
@@ -109,9 +111,46 @@ typedef enum : NSUInteger {
     // 集中设置tabBarItem的类型
     for (UIViewController *controller in controllers) {
         
-        [self setupController:controller tabBarItemType:kTitleImageType];
+        [self setupController:controller tabBarItemType:kImageTitleType];
     }
+    
+    [self setupBadgeValueWithTabBarController:tabBarController atIndex:2];
 }
+
+- (void)setupBadgeValueWithTabBarController:(UITabBarController *)tabBarController atIndex:(NSInteger)index {
+    
+    UILabel *label      = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 12, 12)];
+    
+    label.text            = @"1";
+    label.textAlignment   = NSTextAlignmentCenter;
+    label.font            = [UIFont systemFontOfSize:9];
+    label.textColor       = [UIColor whiteColor];
+    label.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.85f];
+    
+    CGFloat gap   = tabBarController.tabBar.width / tabBarController.viewControllers.count;
+    label.centerY = tabBarController.tabBar.middleY;
+    label.centerX = gap / 2.f + index * gap;
+    
+    label.layer.cornerRadius  = label.width / 2.f;
+    label.layer.masksToBounds = YES;
+    
+    // Start glow.
+    label.glowRadius            = @(3.f);
+    label.glowOpacity           = @(1.f);
+    label.glowColor             = [[UIColor redColor] colorWithAlphaComponent:0.95f];
+    label.glowDuration          = @(1.f);
+    label.hideDuration          = @(3.f);
+    label.glowAnimationDuration = @(2.f);
+    [label createGlowLayer];
+    [label insertGlowLayer];
+    [label startGlowLoop];
+    
+    label.x += 10;
+    label.y -= 15;
+    
+    [tabBarController.tabBar addSubview:label];
+}
+
 
 - (void)setupController:(UIViewController *)controller tabBarItemType:(ETabBarType)type {
     
